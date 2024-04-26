@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/jmtx1020/go_quicknode/client"
 )
 
@@ -63,6 +64,7 @@ func (p *quicknodeProvider) Schema(_ context.Context, _ provider.SchemaRequest, 
 
 // Configure prepares a QN API client for data sources and resources.
 func (p *quicknodeProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
+	tflog.Info(ctx, "Configuring QuickNode client")
 	// retrieve provider data from configuration
 	var config quicknodeProviderModel
 
@@ -125,15 +127,22 @@ func (p *quicknodeProvider) Configure(ctx context.Context, req provider.Configur
 				"If either is already set, ensure the value is not empty.")
 	}
 
+	ctx = tflog.SetField(ctx, "quicknode_api_host", host)
+	ctx = tflog.SetField(ctx, "quicknode_api_token", token)
+	ctx = tflog.MaskFieldValuesWithFieldKeys(ctx, "quicknode_api_token")
+
 	if resp.Diagnostics.HasError() {
 		return
 	}
 
+	tflog.Debug(ctx, "Creating QuickNode client")
 	tf_client := client.NewAPIWrapper(token, host)
 
 	// make the quicknode api client available during data source and resource
 	resp.DataSourceData = tf_client
 	resp.ResourceData = tf_client
+
+	tflog.Info(ctx, "Configured QuickNode client", map[string]any{"success": true})
 }
 
 // DataSources defines the data sources implemented in the provider.
