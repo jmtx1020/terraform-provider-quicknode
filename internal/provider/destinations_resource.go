@@ -158,6 +158,7 @@ func (r *destinationResource) Read(ctx context.Context, req resource.ReadRequest
 	}
 
 	state.ID = types.StringValue(dest.ID)
+	state.Token = types.StringValue(dest.Token)
 	state.Name = types.StringValue(dest.Name)
 	state.To = types.StringValue(dest.To)
 	state.WebhookType = types.StringValue(dest.WebhookType)
