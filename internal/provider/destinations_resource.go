@@ -222,4 +222,23 @@ func (r *destinationResource) Update(ctx context.Context, req resource.UpdateReq
 
 // Delete deletes the resource and removes the Terraform state on success.
 func (r *destinationResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+	// Retrieve values from state
+	var state destinationResourceModel
+	diags := req.State.Get(ctx, &state)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	destinationsAPI := &destinations.DestinationAPI{API: r.client}
+
+	// Delete existing order
+	err := destinationsAPI.DeleteDestinationByID(state.ID.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Error Deleting QuickNode Destination"+state.ID.ValueString(),
+			"Could not delete destination, unexpected error: "+err.Error(),
+		)
+		return
+	}
 }
