@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -13,8 +14,9 @@ import (
 
 // Ensure the implementation satisfies the expected interfaces.
 var (
-	_ resource.Resource              = &destinationResource{}
-	_ resource.ResourceWithConfigure = &destinationResource{}
+	_ resource.Resource                = &destinationResource{}
+	_ resource.ResourceWithConfigure   = &destinationResource{}
+	_ resource.ResourceWithImportState = &destinationResource{}
 )
 
 type destinationResource struct {
@@ -241,4 +243,9 @@ func (r *destinationResource) Delete(ctx context.Context, req resource.DeleteReq
 		)
 		return
 	}
+}
+
+func (r *destinationResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	// Retrieve import ID and save to id attribute
+	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }
