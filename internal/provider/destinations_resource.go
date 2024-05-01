@@ -7,7 +7,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 	destinations "github.com/jmtx1020/go_quicknode/api/destination"
 	"github.com/jmtx1020/go_quicknode/client"
 )
@@ -25,14 +24,6 @@ type destinationResource struct {
 func NewDestinationResource() resource.Resource {
 	return &destinationResource{}
 }
-
-// type destinationResourceModel struct {
-// 	Name        types.String `tfsdk:"name"`
-// 	ToURL       types.String `tfsdk:"to_url"`
-// 	WebhookType types.String `tfsdk:"webhook_type"`
-// 	Service     types.String `tfsdk:"service"`
-// 	PayloadType types.Int64  `tfsdk:"payload_type"`
-// }
 
 type destinationResourceModel struct {
 	ID          types.String `tfsdk:"id"`
@@ -114,8 +105,6 @@ func (r *destinationResource) Create(ctx context.Context, req resource.CreateReq
 		return
 	}
 
-	tflog.Debug(ctx, "Before Request")
-
 	destinationsAPI := &destinations.DestinationAPI{API: r.client}
 	dest, err := destinationsAPI.CreateDestination(
 		plan.Name.ValueString(),
@@ -157,7 +146,6 @@ func (r *destinationResource) Read(ctx context.Context, req resource.ReadRequest
 
 	destinationsAPI := &destinations.DestinationAPI{API: r.client}
 	// Get refreshed order value from HashiCups
-	tflog.Debug(ctx, "PLAN DEBUG")
 	dest, err := destinationsAPI.GetDestinationByID(fmt.Sprint(state.ID.ValueString()))
 	if err != nil {
 		resp.Diagnostics.AddError(
@@ -167,11 +155,14 @@ func (r *destinationResource) Read(ctx context.Context, req resource.ReadRequest
 		return
 	}
 
+	state.ID = types.StringValue(dest.ID)
 	state.Name = types.StringValue(dest.Name)
 	state.To = types.StringValue(dest.To)
 	state.WebhookType = types.StringValue(dest.WebhookType)
 	state.Service = types.StringValue(dest.Service)
 	state.PayloadType = types.Int64Value(int64(dest.PayloadType))
+	state.CreatedAt = types.StringValue(dest.CreatedAt.Format("2006-01-02 15:04:05"))
+	state.UpdatedAt = types.StringValue(dest.UpdatedAt.Format("2006-01-02 15:04:05"))
 
 	// Set refreshed state
 	diags = resp.State.Set(ctx, &state)
@@ -183,6 +174,50 @@ func (r *destinationResource) Read(ctx context.Context, req resource.ReadRequest
 
 // Update updates the resource and sets the updated Terraform state on success.
 func (r *destinationResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+	// Retrieve values from plan
+	var plan destinationResourceModel
+	diags := req.Plan.Get(ctx, &plan)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	var state destinationResourceModel
+	diags = req.State.Get(ctx, &state)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	destinationsAPI := &destinations.DestinationAPI{API: r.client}
+
+	err := destinationsAPI.DeleteDestinationByID(state.ID.ValueString())
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Update - Error Deleting QuickNode Destination.",
+			"Update - Could not delete QuickNode ID "+state.ID.ValueString()+": "+err.Error(),
+		)
+		return
+	}
+
+	dest, err := destinationsAPI.CreateDestination(
+		plan.Name.ValueString(),
+		plan.To.ValueString(),
+		plan.WebhookType.ValueString(),
+		plan.Service.ValueString(),
+		int(plan.PayloadType.ValueInt64()),
+	)
+
+	plan.ID = types.StringValue(dest.ID)
+	plan.Token = types.StringValue(dest.Token)
+	plan.CreatedAt = types.StringValue(dest.CreatedAt.Format("2006-01-02 15:04:05"))
+	plan.UpdatedAt = types.StringValue(dest.UpdatedAt.Format("2006-01-02 15:04:05"))
+
+	diags = resp.State.Set(ctx, plan)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
 }
 
 // Delete deletes the resource and removes the Terraform state on success.
