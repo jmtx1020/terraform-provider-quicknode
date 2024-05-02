@@ -151,6 +151,7 @@ func (p *quicknodeProvider) Configure(ctx context.Context, req provider.Configur
 func (p *quicknodeProvider) DataSources(_ context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
 		NewDestinationsDataSource,
+		NewDestinationDataSource,
 	}
 }
 

@@ -102,7 +102,7 @@ func (d *destinationsDataSource) Read(ctx context.Context, req datasource.ReadRe
 	dests, err := destinationAPI.GetAllDestinations()
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"Unable to Read HashiCups Coffees",
+			"Unable to Read QuickNode Destinations",
 			err.Error())
 	}
 
