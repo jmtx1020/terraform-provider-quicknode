@@ -7,7 +7,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	destinations "github.com/jmtx1020/go_quicknode/api/destination"
+	destinations "github.com/jmtx1020/go_quicknode/api/destinations"
 	"github.com/jmtx1020/go_quicknode/client"
 )
 
