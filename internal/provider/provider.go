@@ -52,11 +52,13 @@ func (p *quicknodeProvider) Schema(_ context.Context, _ provider.SchemaRequest, 
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"host": schema.StringAttribute{
-				Optional: true,
+				Description: "API Hostname",
+				Optional:    true,
 			},
 			"token": schema.StringAttribute{
-				Optional:  true,
-				Sensitive: true,
+				Description: "API Token to use to authenticate.",
+				Optional:    true,
+				Sensitive:   true,
 			},
 		},
 	}

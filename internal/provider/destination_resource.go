@@ -67,31 +67,40 @@ func (r *destinationResource) Schema(_ context.Context, _ resource.SchemaRequest
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
-				Computed: true,
+				Description: "ID given by API for the destination.",
+				Computed:    true,
 			},
 			"name": schema.StringAttribute{
-				Required: true,
+				Description: "User supplied name given to the destination.",
+				Required:    true,
 			},
 			"to": schema.StringAttribute{
-				Required: true,
+				Description: "The webhook URL to which QuickAlerts will send alert payloads.",
+				Required:    true,
 			},
 			"webhook_type": schema.StringAttribute{
-				Required: true,
+				Description: "The type of destination. ENUM: 'POST', 'GET'",
+				Required:    true,
 			},
 			"service": schema.StringAttribute{
-				Required: true,
+				Description: "The destination service. Currently only \"webhook\" is supported.",
+				Required:    true,
 			},
 			"token": schema.StringAttribute{
-				Computed: true,
+				Description: "The token for this destination. This is used to optionally verify a QuickAlerts payload.",
+				Computed:    true,
 			},
 			"payload_type": schema.Int64Attribute{
-				Required: true,
+				Description: "The type of payload to send. ENUM: 1,2,3,4,5,6,7",
+				Required:    true,
 			},
 			"created_at": schema.StringAttribute{
-				Computed: true,
+				Description: "The date and time the destination was created.",
+				Computed:    true,
 			},
 			"updated_at": schema.StringAttribute{
-				Computed: true,
+				Description: "The date and time the destination was last updated.",
+				Computed:    true,
 			},
 		},
 	}

@@ -52,31 +52,40 @@ func (d *destinationsDataSource) Schema(_ context.Context, _ datasource.SchemaRe
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"id": schema.StringAttribute{
-							Computed: true,
+							Description: "ID given by API for the destination.",
+							Computed:    true,
 						},
 						"name": schema.StringAttribute{
-							Computed: true,
+							Description: "User supplied name given to the destination.",
+							Computed:    true,
 						},
 						"to": schema.StringAttribute{
-							Computed: true,
+							Description: "The webhook URL to which QuickAlerts will send alert payloads.",
+							Computed:    true,
 						},
 						"webhook_type": schema.StringAttribute{
-							Computed: true,
+							Description: "The type of destination. ENUM: 'POST', 'GET'",
+							Computed:    true,
 						},
 						"service": schema.StringAttribute{
-							Computed: true,
+							Description: "The destination service. Currently only \"webhook\" is supported.",
+							Computed:    true,
 						},
 						"token": schema.StringAttribute{
-							Computed: true,
+							Description: "The token for this destination. This is used to optionally verify a QuickAlerts payload.",
+							Computed:    true,
 						},
 						"payload_type": schema.Int64Attribute{
-							Computed: true,
+							Description: "The type of payload to send. ENUM: 1,2,3,4,5,6,7",
+							Computed:    true,
 						},
 						"created_at": schema.StringAttribute{
-							Computed: true,
+							Description: "The date and time the destination was created.",
+							Computed:    true,
 						},
 						"updated_at": schema.StringAttribute{
-							Computed: true,
+							Description: "The date and time the destination was last updated.",
+							Computed:    true,
 						},
 					},
 				},
