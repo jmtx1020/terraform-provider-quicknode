@@ -154,6 +154,7 @@ func (p *quicknodeProvider) DataSources(_ context.Context) []func() datasource.D
 		NewDestinationDataSource,
 		NewNotificationsDataSource,
 		NewNotificationDataSource,
+		NewGatewayDataSource,
 	}
 }
 
