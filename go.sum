@@ -128,6 +128,8 @@ github.com/jmtx1020/go_quicknode v0.0.3 h1:S6jWfkBH5vsh6Bp6rdQGRByUiKKckbAx6r4T/
 github.com/jmtx1020/go_quicknode v0.0.3/go.mod h1:txDUKW02JU7DoH2bweWeQ9zkdB+mIIEh5hvUzFN5Z8Q=
 github.com/jmtx1020/go_quicknode v0.1.0 h1:N3N7JFHp0DDe1WF0lc/OTSDJX2SSTN2ej9xiWMxtlww=
 github.com/jmtx1020/go_quicknode v0.1.0/go.mod h1:txDUKW02JU7DoH2bweWeQ9zkdB+mIIEh5hvUzFN5Z8Q=
+github.com/jmtx1020/go_quicknode v0.1.1 h1:g/Ymfm1dEh0PZmWmeKiIzrejf4zPjTL+3wCdKSeSvIk=
+github.com/jmtx1020/go_quicknode v0.1.1/go.mod h1:txDUKW02JU7DoH2bweWeQ9zkdB+mIIEh5hvUzFN5Z8Q=
 github.com/kevinburke/ssh_config v1.2.0 h1:x584FjTGwHzMwvHx18PXxbBVzfnxogHaAReU4gf13a4=
 github.com/kevinburke/ssh_config v1.2.0/go.mod h1:CT57kijsi8u/K/BOFA39wgDQJ9CxiF4nAY/ojJ6r6mM=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=

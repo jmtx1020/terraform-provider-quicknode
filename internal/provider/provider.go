@@ -162,5 +162,6 @@ func (p *quicknodeProvider) Resources(_ context.Context) []func() resource.Resou
 	return []func() resource.Resource{
 		NewDestinationResource,
 		NewNotificationResource,
+		NewGatewayResource,
 	}
 }
