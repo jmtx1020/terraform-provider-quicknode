@@ -13,14 +13,14 @@ func TestDestinationResource(t *testing.T) {
 			// Create and Read testing
 			{
 				Config: providerConfig + `
-resource "quicknode_destination" "test" {
-	name         = "ds-tf-testing-api"
-	to           = "https://us-central1-serious-truck-412423.cloudfunctions.net/function-1"
-	webhook_type = "POST"
-	service      = "webhook"
-	payload_type = 1
-}
-`,
+					resource "quicknode_destination" "test" {
+						name         = "ds-tf-testing-api"
+						to           = "https://us-central1-serious-truck-412423.cloudfunctions.net/function-1"
+						webhook_type = "POST"
+						service      = "webhook"
+						payload_type = 1
+					}
+				`,
 				Check: resource.ComposeAggregateTestCheckFunc(
 					// Verify first coffee item has Computed attributes filled.
 					resource.TestCheckResourceAttr("quicknode_destination.test", "name", "ds-tf-testing-api"),
@@ -43,14 +43,14 @@ resource "quicknode_destination" "test" {
 			// Update and Read testing
 			{
 				Config: providerConfig + `
-				resource "quicknode_destination" "test" {
-					name         = "ds-tf-testing-update"
-					to           = "https://us-central1-serious-truck-412423.cloudfunctions.net/function-1"
-					webhook_type = "POST"
-					service      = "webhook"
-					payload_type = 1
-				}
-			`,
+					resource "quicknode_destination" "test" {
+						name         = "ds-tf-testing-update"
+						to           = "https://us-central1-serious-truck-412423.cloudfunctions.net/function-1"
+						webhook_type = "POST"
+						service      = "webhook"
+						payload_type = 1
+					}
+				`,
 				Check: resource.ComposeAggregateTestCheckFunc(
 					// Verify first destination has attributes updated.
 					resource.TestCheckResourceAttr("quicknode_destination.test", "name", "ds-tf-testing-update"),

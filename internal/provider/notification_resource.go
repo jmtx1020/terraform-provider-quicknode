@@ -35,9 +35,8 @@ type notificationResourceModel struct {
 	Network        types.String   `tfsdk:"network"`
 	Enabled        types.Bool     `tfsdk:"enabled"`
 	DestinationIDs []types.String `tfsdk:"destination_ids"`
-	// Destinations   []destinationResourceModel `tfsdk:"destinations"`
-	CreatedAt types.String `tfsdk:"created_at"`
-	UpdatedAt types.String `tfsdk:"updated_at"`
+	CreatedAt      types.String   `tfsdk:"created_at"`
+	UpdatedAt      types.String   `tfsdk:"updated_at"`
 }
 
 // Configure adds the provider configured client to the resource.

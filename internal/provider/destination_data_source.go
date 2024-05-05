@@ -74,7 +74,6 @@ func (d *destinationDataSource) Schema(_ context.Context, _ datasource.SchemaReq
 
 func (d *destinationDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
 	var state destinationResourceModel
-	// idPath := path.Root("id")
 	req.Config.GetAttribute(ctx, path.Root("id"), &state.ID)
 
 	destinationAPI := &destinations.DestinationAPI{API: d.client}
