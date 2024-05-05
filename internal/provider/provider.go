@@ -153,6 +153,7 @@ func (p *quicknodeProvider) DataSources(_ context.Context) []func() datasource.D
 		NewDestinationsDataSource,
 		NewDestinationDataSource,
 		NewNotificationsDataSource,
+		NewNotificationDataSource,
 	}
 }
 
