@@ -27,11 +27,10 @@ jobs:
         with:
           go-version-file: "go.mod"
           cache: true
-      - run: go mod download
+      - run: |-
+          git config --global url."https://${{ secrets.GITHUB_TOKEN }}:x-oauth-basic@github.com/jmtx1020".insteadOf "https://github.com/jmtx1020"
+          go mod download
         env:
-          QUICKNODE_API_TOKEN: ${{ secrets.QUICKNODE_API_TOKEN }}
-          QUICKNODE_API_HOST: ${{ secrets.QUICKNODE_API_HOST }}
-          GOPRIVATE: "github.com/jmtx1020/go_quicknode"
           GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
       - run: go build -v .
       - name: Run linters
