@@ -89,6 +89,8 @@ jobs:
           git config --global url."https://${{ secrets.GITHUB_TOKEN }}:x-oauth-basic@github.com/jmtx1020".insteadOf "https://github.com/jmtx1020"
       - run: |-
           go mod download
+        env:
+          GOPRIVATE: "github.com/jmtx1020/go_quicknode"
       - env:
           TF_ACC: "1"
           GOPRIVATE: "github.com/jmtx1020/go_quicknode"
