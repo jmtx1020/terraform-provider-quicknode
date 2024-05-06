@@ -138,12 +138,26 @@ func (n *notificationResource) Create(ctx context.Context, req resource.CreateRe
 			notification.ID,
 			true,
 		)
+		if err != nil {
+			resp.Diagnostics.AddError(
+				"Error enabling notification",
+				"Could not enable notification, unexpected error: "+err.Error(),
+			)
+			return
+		}
 	} else {
 		tflog.Debug(ctx, "Disabling Notification")
 		err = notificationsAPI.ToggleNotificationByID(
 			notification.ID,
 			false,
 		)
+		if err != nil {
+			resp.Diagnostics.AddError(
+				"Error disabling notification",
+				"Could not enable notification, unexpected error: "+err.Error(),
+			)
+			return
+		}
 	}
 
 	plan.ID = types.StringValue(notification.ID)
