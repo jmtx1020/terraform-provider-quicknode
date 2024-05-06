@@ -219,6 +219,13 @@ func (r *destinationResource) Update(ctx context.Context, req resource.UpdateReq
 		plan.Service.ValueString(),
 		int(plan.PayloadType.ValueInt64()),
 	)
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Update - Error Creating QuickNode Destination.",
+			"Update - Could not creating QuickNode Name "+state.Name.ValueString()+": "+err.Error(),
+		)
+		return
+	}
 
 	plan.ID = types.StringValue(dest.ID)
 	plan.Token = types.StringValue(dest.Token)

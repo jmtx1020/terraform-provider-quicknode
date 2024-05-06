@@ -27,7 +27,12 @@ jobs:
         with:
           go-version-file: "go.mod"
           cache: true
-      - run: go mod download
+      - run: |-
+          git config --global url.https://$GITHUB_TOKEN@github.com/.insteadOf https://github.com/
+          go mod download
+        env:
+          GOPRIVATE: "github.com/jmtx1020/go_quicknode"
+          GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
       - run: go build -v .
       - name: Run linters
         uses: golangci/golangci-lint-action@3cfe3a4abbb849e10058ce4af15d205b6da42804 # v4.0.0
@@ -62,6 +67,7 @@ jobs:
     timeout-minutes: 15
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         # list whatever Terraform versions here you would like to support
         terraform:
@@ -83,13 +89,16 @@ jobs:
           QUICKNODE_API_TOKEN: ${{ secrets.QUICKNODE_API_TOKEN }}
           QUICKNODE_API_HOST: ${{ secrets.QUICKNODE_API_HOST }}
           GOPRIVATE: "github.com/jmtx1020/go_quicknode"
-      - name: Setup access for private go modules
-        run: |
-          git config --global url."ssh://git@github.com/".insteadOf https://github.com/
+          GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
       - run: |-
+          git config --global url.https://$GITHUB_TOKEN@github.com/.insteadOf https://github.com/
           go mod download
+        env:
+          GOPRIVATE: "github.com/jmtx1020/go_quicknode"
       - env:
           TF_ACC: "1"
+          QUICKNODE_API_TOKEN: ${{ secrets.QUICKNODE_API_TOKEN }}
+          QUICKNODE_API_HOST: ${{ secrets.QUICKNODE_API_HOST }}
         run: |-
           go test -v -cover ./internal/provider/
         timeout-minutes: 10

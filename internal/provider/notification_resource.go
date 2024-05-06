@@ -132,18 +132,32 @@ func (n *notificationResource) Create(ctx context.Context, req resource.CreateRe
 	}
 
 	// toggle the notification (enabled or disabled) based on plan values
-	if plan.Enabled.ValueBool() == true {
+	if plan.Enabled.ValueBool() {
 		tflog.Debug(ctx, "Enabling Notification")
 		err = notificationsAPI.ToggleNotificationByID(
 			notification.ID,
 			true,
 		)
+		if err != nil {
+			resp.Diagnostics.AddError(
+				"Error enabling notification",
+				"Could not enable notification, unexpected error: "+err.Error(),
+			)
+			return
+		}
 	} else {
 		tflog.Debug(ctx, "Disabling Notification")
 		err = notificationsAPI.ToggleNotificationByID(
 			notification.ID,
 			false,
 		)
+		if err != nil {
+			resp.Diagnostics.AddError(
+				"Error disabling notification",
+				"Could not disable notification, unexpected error: "+err.Error(),
+			)
+			return
+		}
 	}
 
 	plan.ID = types.StringValue(notification.ID)
@@ -182,8 +196,6 @@ func (n *notificationResource) Read(ctx context.Context, req resource.ReadReques
 
 	notif_bytes := []byte(notif.Expression)
 	notif_expr_b64 := base64.StdEncoding.EncodeToString(notif_bytes)
-
-	tflog.Debug(ctx, "READ METHOD")
 
 	state.ID = types.StringValue(notif.ID)
 	state.Name = types.StringValue(notif.Name)
@@ -236,18 +248,32 @@ func (n *notificationResource) Update(ctx context.Context, req resource.UpdateRe
 	}
 
 	// toggle the notification (enabled or disabled) based on plan values
-	if plan.Enabled.ValueBool() == true {
+	if plan.Enabled.ValueBool() {
 		tflog.Debug(ctx, "Enabling Notification")
 		err = notificationsAPI.ToggleNotificationByID(
 			notif.ID,
 			true,
 		)
+		if err != nil {
+			resp.Diagnostics.AddError(
+				"Error enabling notification",
+				"Could not enable notification, unexpected error: "+err.Error(),
+			)
+			return
+		}
 	} else {
 		tflog.Debug(ctx, "Disabling Notification")
 		err = notificationsAPI.ToggleNotificationByID(
 			notif.ID,
 			false,
 		)
+		if err != nil {
+			resp.Diagnostics.AddError(
+				"Error disabling notification",
+				"Could not disable notification, unexpected error: "+err.Error(),
+			)
+			return
+		}
 	}
 
 	notif_bytes := []byte(notif.Expression)

@@ -76,7 +76,7 @@ func (p *quicknodeProvider) Configure(ctx context.Context, req provider.Configur
 		return
 	}
 
-	// if the practicioner provided a configuration value for an of the attributes
+	// if the practitioner provided a configuration value for an of the attributes
 	// it must be a known value
 	if config.Host.IsUnknown() {
 		resp.Diagnostics.AddAttributeError(
