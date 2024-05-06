@@ -132,7 +132,7 @@ func (n *notificationResource) Create(ctx context.Context, req resource.CreateRe
 	}
 
 	// toggle the notification (enabled or disabled) based on plan values
-	if plan.Enabled.ValueBool() == true {
+	if plan.Enabled.ValueBool() {
 		tflog.Debug(ctx, "Enabling Notification")
 		err = notificationsAPI.ToggleNotificationByID(
 			notification.ID,
@@ -236,7 +236,7 @@ func (n *notificationResource) Update(ctx context.Context, req resource.UpdateRe
 	}
 
 	// toggle the notification (enabled or disabled) based on plan values
-	if plan.Enabled.ValueBool() == true {
+	if plan.Enabled.ValueBool() {
 		tflog.Debug(ctx, "Enabling Notification")
 		err = notificationsAPI.ToggleNotificationByID(
 			notif.ID,
