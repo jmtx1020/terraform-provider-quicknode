@@ -83,9 +83,9 @@ jobs:
           QUICKNODE_API_TOKEN: ${{ secrets.QUICKNODE_API_TOKEN }}
           QUICKNODE_API_HOST: ${{ secrets.QUICKNODE_API_HOST }}
           GOPRIVATE: "github.com/jmtx1020/go_quicknode"
-      - run: |-
-          git config --global url."https://${GH_ACCESS_TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
-          GOPRIVATE=github.com/jmtx1020/go_quicknode go get github.com/jmtx1020/go_quicknode
+      - name: Setup access for private go modules
+        run: |
+          git config --global url."ssh://git@github.com/".insteadOf https://github.com/
       - run: |-
           go mod download
       - env:
