@@ -59,47 +59,45 @@ jobs:
           git diff --compact-summary --exit-code || \
             (echo; echo "Unexpected difference in directories after code generation. Run 'go generate ./...' command and commit."; exit 1)
 
-  # # Run acceptance tests in a matrix with Terraform CLI versions
-  # test:
-  #   name: Terraform Provider Acceptance Tests
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 15
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       # list whatever Terraform versions here you would like to support
-  #       terraform:
-  #         - "1.0.*"
-  #         - "1.1.*"
-  #         - "1.2.*"
-  #         - "1.3.*"
-  #         - "1.4.*"
-  #   steps:
-  #     - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-  #     - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
-  #       with:
-  #         go-version-file: "go.mod"
-  #         cache: true
-  #     - uses: hashicorp/setup-terraform@a1502cd9e758c50496cc9ac5308c4843bcd56d36 # v3.0.0
-  #       with:
-  #         terraform_version: ${{ matrix.terraform }}
-  #         terraform_wrapper: false
-  #         QUICKNODE_API_TOKEN: ${{ secrets.QUICKNODE_API_TOKEN }}
-  #         QUICKNODE_API_HOST: ${{ secrets.QUICKNODE_API_HOST }}
-  #         GOPRIVATE: "github.com/jmtx1020/go_quicknode"
-  #         GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-  #     - name: Setup access for private go modules
-  #       run: |
-  #         git config --global url."https://${{ secrets.GITHUB_TOKEN }}:x-oauth-basic@github.com/jmtx1020".insteadOf "https://github.com/jmtx1020"
-  #     - run: |-
-  #         GOPRIVATE=github.com/jmtx1020/go_quicknode go get github.com/jmtx1020/go_quicknode
-  #         go mod download
-  #       env:
-  #         GOPRIVATE: "github.com/jmtx1020/go_quicknode"
-  #     - env:
-  #         TF_ACC: "1"
-  #         GOPRIVATE: "github.com/jmtx1020/go_quicknode"
-  #       run: |-
-  #         go test -v -cover ./internal/provider/
-  #       timeout-minutes: 10
+  # Run acceptance tests in a matrix with Terraform CLI versions
+  test:
+    name: Terraform Provider Acceptance Tests
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        # list whatever Terraform versions here you would like to support
+        terraform:
+          - "1.0.*"
+          - "1.1.*"
+          - "1.2.*"
+          - "1.3.*"
+          - "1.4.*"
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+        with:
+          go-version-file: "go.mod"
+          cache: true
+      - uses: hashicorp/setup-terraform@a1502cd9e758c50496cc9ac5308c4843bcd56d36 # v3.0.0
+        with:
+          terraform_version: ${{ matrix.terraform }}
+          terraform_wrapper: false
+          QUICKNODE_API_TOKEN: ${{ secrets.QUICKNODE_API_TOKEN }}
+          QUICKNODE_API_HOST: ${{ secrets.QUICKNODE_API_HOST }}
+          GOPRIVATE: "github.com/jmtx1020/go_quicknode"
+          GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+      - run: |-
+          git config --global url.https://$GITHUB_TOKEN@github.com/.insteadOf https://github.com/
+          go mod download
+        env:
+          GOPRIVATE: "github.com/jmtx1020/go_quicknode"
+      - env:
+          TF_ACC: "1"
+          QUICKNODE_API_TOKEN: ${{ secrets.QUICKNODE_API_TOKEN }}
+          QUICKNODE_API_HOST: ${{ secrets.QUICKNODE_API_HOST }}
+        run: |-
+          go test -v -cover ./internal/provider/
+        timeout-minutes: 10
