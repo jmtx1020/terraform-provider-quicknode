@@ -28,7 +28,7 @@ jobs:
           go-version-file: "go.mod"
           cache: true
       - run: |-
-          git config --global url."https://${{ secrets.GITHUB_TOKEN }}:x-oauth-basic@github.com/jmtx1020".insteadOf "https://github.com/jmtx1020"
+          git config --global url.https://$GITHUB_TOKEN@github.com/.insteadOf https://github.com/
           go mod download
         env:
           GOPRIVATE: "github.com/jmtx1020/go_quicknode"
