@@ -14,9 +14,9 @@ description: |-
 
 ```terraform
 # Manage example destination.
-resource "quicknode_destination" "edx" {
-  name         = "tz-testing-go-api"
-  to           = "https://us-central1-serious-truck-412423.cloudfunctions.net/function-1"
+resource "quicknode_destination" "destination" {
+  name         = var.name
+  to           = var.endpoint_url
   webhook_type = "POST"
   service      = "webhook"
   payload_type = 1
@@ -47,5 +47,5 @@ Import is supported using the following syntax:
 
 ```shell
 # Destination can be imported by specifying the ID in API.
-terraform import quicknode_destination.example $DESTINATION_ID
+terraform import quicknode_destination.destination $DESTINATION_ID
 ```
