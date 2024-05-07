@@ -41,7 +41,7 @@ Associated documentation for all resources and datasources can be found [here](h
 ```hcl
 resource "quicknode_destination" "destination" {
   name         = "dest"
-  to           = "var.endpoint_url"
+  to           = var.endpoint_url
   webhook_type = "POST"
   service      = "webhook"
   payload_type = 1
@@ -57,7 +57,7 @@ data "quicknode_notifications" "dests" {}
 
 
 resource "quicknode_notification" "test" {
-  name            = "test_notification"
+  name            = var.notification_name
   network         = "ethereum-mainnet"
   expression      = "dHhfdG8gPT0gJzB4ZDhkYTZiZjI2OTY0YWY5ZDdlZWQ5ZTAzZTUzNDE1ZDM3YWE5NjA0Nic="
   destination_ids = [resource.quicknode_destination.destination.id]
