@@ -97,8 +97,8 @@ github.com/hashicorp/terraform-exec v0.20.0 h1:DIZnPsqzPGuUnq6cH8jWcPunBfY+C+M8J
 github.com/hashicorp/terraform-exec v0.20.0/go.mod h1:ckKGkJWbsNqFKV1itgMnE0hY9IYf1HoiekpuN0eWoDw=
 github.com/hashicorp/terraform-json v0.21.0 h1:9NQxbLNqPbEMze+S6+YluEdXgJmhQykRyRNd+zTI05U=
 github.com/hashicorp/terraform-json v0.21.0/go.mod h1:qdeBs11ovMzo5puhrRibdD6d2Dq6TyE/28JiU4tIQxk=
-github.com/hashicorp/terraform-plugin-docs v0.19.0 h1:ufXLte5Kx20LazYmGN2UZG2bN4aF0PmlDyuS1iKWSXo=
-github.com/hashicorp/terraform-plugin-docs v0.19.0/go.mod h1:NPfKCSfzTtq+YCFHr2qTAMknWUxR8C4KgTbGkHULSV8=
+github.com/hashicorp/terraform-plugin-docs v0.19.2 h1:YjdKa1vuqt9EnPYkkrv9HnGZz175HhSJ7Vsn8yZeWus=
+github.com/hashicorp/terraform-plugin-docs v0.19.2/go.mod h1:gad2aP6uObFKhgNE8DR9nsEuEQnibp7il0jZYYOunWY=
 github.com/hashicorp/terraform-plugin-framework v1.8.0 h1:P07qy8RKLcoBkCrY2RHJer5AEvJnDuXomBgou6fD8kI=
 github.com/hashicorp/terraform-plugin-framework v1.8.0/go.mod h1:/CpTukO88PcL/62noU7cuyaSJ4Rsim+A/pa+3rUVufY=
 github.com/hashicorp/terraform-plugin-go v0.22.2 h1:5o8uveu6eZUf5J7xGPV0eY0TPXg3qpmwX9sce03Bxnc=
@@ -124,10 +124,6 @@ github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 h1:BQSFePA1RWJOl
 github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99/go.mod h1:1lJo3i6rXxKeerYnT8Nvf0QmHCRC1n8sfWVwXF2Frvo=
 github.com/jhump/protoreflect v1.15.1 h1:HUMERORf3I3ZdX05WaQ6MIpd/NJ434hTp5YiKgfCL6c=
 github.com/jhump/protoreflect v1.15.1/go.mod h1:jD/2GMKKE6OqX8qTjhADU1e6DShO+gavG9e0Q693nKo=
-github.com/jmtx1020/go_quicknode v0.0.3 h1:S6jWfkBH5vsh6Bp6rdQGRByUiKKckbAx6r4T/J7/no8=
-github.com/jmtx1020/go_quicknode v0.0.3/go.mod h1:txDUKW02JU7DoH2bweWeQ9zkdB+mIIEh5hvUzFN5Z8Q=
-github.com/jmtx1020/go_quicknode v0.1.0 h1:N3N7JFHp0DDe1WF0lc/OTSDJX2SSTN2ej9xiWMxtlww=
-github.com/jmtx1020/go_quicknode v0.1.0/go.mod h1:txDUKW02JU7DoH2bweWeQ9zkdB+mIIEh5hvUzFN5Z8Q=
 github.com/jmtx1020/go_quicknode v0.1.1 h1:g/Ymfm1dEh0PZmWmeKiIzrejf4zPjTL+3wCdKSeSvIk=
 github.com/jmtx1020/go_quicknode v0.1.1/go.mod h1:txDUKW02JU7DoH2bweWeQ9zkdB+mIIEh5hvUzFN5Z8Q=
 github.com/kevinburke/ssh_config v1.2.0 h1:x584FjTGwHzMwvHx18PXxbBVzfnxogHaAReU4gf13a4=
@@ -201,8 +197,8 @@ github.com/vmihailenco/tagparser/v2 v2.0.0/go.mod h1:Wri+At7QHww0WTrCBeu4J6bNtoV
 github.com/xanzy/ssh-agent v0.3.3 h1:+/15pJfg/RsTxqYcX6fHqOXZwwMP+2VyYWJeWM2qQFM=
 github.com/xanzy/ssh-agent v0.3.3/go.mod h1:6dzNDKs0J9rVPHPhaGCukekBHKqfl+L3KghI1Bc68Uw=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
-github.com/yuin/goldmark v1.7.0 h1:EfOIvIMZIzHdB/R/zVrikYLPPwJlfMcNczJFMs1m6sA=
-github.com/yuin/goldmark v1.7.0/go.mod h1:uzxRWxtg69N339t3louHJ7+O03ezfj6PlliRlaOzY1E=
+github.com/yuin/goldmark v1.7.1 h1:3bajkSilaCbjdKVsKdZjZCLBNPL9pYzrCakKaf4U49U=
+github.com/yuin/goldmark v1.7.1/go.mod h1:uzxRWxtg69N339t3louHJ7+O03ezfj6PlliRlaOzY1E=
 github.com/yuin/goldmark-meta v1.1.0 h1:pWw+JLHGZe8Rk0EGsMVssiNb/AaPMHfSRszZeUeiOUc=
 github.com/yuin/goldmark-meta v1.1.0/go.mod h1:U4spWENafuA7Zyg+Lj5RqK/MF+ovMYtBvXi1lBb2VP0=
 github.com/zclconf/go-cty v1.14.4 h1:uXXczd9QDGsgu0i/QFR/hzI5NYCHLf6NQw/atrbnhq8=
